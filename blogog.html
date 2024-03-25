@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<head>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Acme&family=Londrina+Shadow&display=swap" rel="stylesheet">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amatic+SC&display=swap" rel="stylesheet">
+
+  <title>Haily Ramoutar</title>
+  <style>
+
+h1 {
+  font-family: 'Russo One', sans-serif; 
+  color: #154a72
+}
+
+    body {
+    
+      text-align: center;
+      font-family: 'Acme', sans-serif;
+      background: url("https://i.imgur.com/A62pY4O.png");
+      background-size: cover;
+      background-position: center;
+      color: #154a72;
+      font-family: sans-serif;
+    }
+    p {
+      font-family: 'Acme', 'Londrina Shadow', sans-serif;
+      font-size: 22px;
+    }
+    input {
+     font-family: 'Amatic SC', sans-serif; 
+      border: 0;
+      padding: 10px;
+      font-size: 18px;
+    }
+   input[type="submit"] {
+     background: #1f6eaa;
+     color: #79d3ff;
+   }
+  </style>
+</head>
+<body>
+<img src=https://i.imgur.com/jVcNHbY.png>
+
+  <h1>Haily Ramoutar</h1>
+  <p>Hi! I'm Haily, a student and Spongebob fan. Say hello!</p>
+  
+  <input id="Name" placeholder="Your name">
+  
+  <input id="Email" input type="email" placeholder="Your email"> 
+  <input id="submit" input type="submit">
+  
+  <script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-app.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+   
+    import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-database.js";
+
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyDsy9VHp-_0Rc9TDC7QUh6Dr5KjCKp9JCs",
+      authDomain: "spongebob-era.firebaseapp.com",
+      projectId: "spongebob-era",
+      storageBucket: "spongebob-era.appspot.com",
+      messagingSenderId: "515976442636",
+      appId: "1:515976442636:web:4ca49d1bb02bcf45400f29"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    
+    
+    
+    
+    
+    
+    
+   
+    const db = getDatabase(app);
+
+const Name = document.querySelector("#Name") 
+const Email = document.querySelector("#Email")
+document.querySelector('#submit').addEventListener('click', Submit)
+    
+function Submit() {
+  const timestamp = buildTimestamp()
+  
+  set(ref(db, timestamp), {
+	  Name: Name.value,
+      email: Email.value,
+  });
+
+  Name.value = ""
+  Email.value = ""
+  
+}
+
+function buildTimestamp() {
+  const now = new Date();
+  let timestamp = now.getFullYear().toString() + "/";
+  //const month = now.toLocaleString('default', { month: 'long' });
+
+  let month = now.getMonth()+1   //add 1 because Javascript uses 0 for January
+  month = month.toString()
+  month = addLeadingZero(month)
+  timestamp += month + "/"; 
+
+  let date = now.getDate().toString()
+  date = addLeadingZero(date)
+  timestamp += date + "/";
+
+  let hours = now.getHours().toString()
+  hours = addLeadingZero(hours)
+  timestamp += hours + ":";
+
+  let minutes = now.getMinutes().toString()
+  minutes = addLeadingZero(minutes)
+  timestamp += minutes + ":";
+
+  let seconds = now.getSeconds().toString()
+  seconds = addLeadingZero(seconds)
+  timestamp += seconds;
+
+  return timestamp
+}
+
+function addLeadingZero(units) {
+	if (units.length < 2) {
+		units = "0" + units
+	}
+	return units
+}
+
+  </script>
+    
+</body>
